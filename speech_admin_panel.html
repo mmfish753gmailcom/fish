@@ -294,14 +294,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        .token-saved {
-            background: #d1fae5;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-            color: #065f46;
-        }
-
         .quick-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -406,7 +398,7 @@
 
                     <div class="form-group">
                         <label>תאריך:</label>
-                        <input type="text" id="speechDate" placeholder="2025-10-19">
+                        <input type="text" id="speechDate" placeholder="2025-10-20">
                     </div>
 
                     <div class="form-group">
@@ -439,7 +431,7 @@
 
                         <div class="form-group">
                             <label>תאריך:</label>
-                            <input type="text" id="fileDate" placeholder="2025-10-19">
+                            <input type="text" id="fileDate" placeholder="2025-10-20">
                         </div>
 
                         <div class="form-group">
@@ -627,6 +619,11 @@
             await uploadSpeechData(title, date, category, content);
         }
 
+        // FIXED: Proper UTF-8 encoding for Hebrew
+        function utf8_to_b64(str) {
+            return btoa(unescape(encodeURIComponent(str)));
+        }
+
         async function uploadSpeechData(title, date, category, content) {
             showStatus('uploadStatus', 'info', '⏳ מעלה נאום...');
 
@@ -648,7 +645,7 @@
                 if (response.ok) {
                     const data = await response.json();
                     sha = data.sha;
-                    const content_decoded = atob(data.content);
+                    const content_decoded = decodeURIComponent(escape(atob(data.content)));
                     speeches = JSON.parse(content_decoded);
                 }
 
@@ -663,6 +660,10 @@
 
                 speeches.unshift(newSpeech);
 
+                // Convert to properly encoded JSON
+                const jsonString = JSON.stringify(speeches, null, 2);
+                const encodedContent = utf8_to_b64(jsonString);
+
                 // Update file
                 const updateResponse = await fetch(
                     `https://api.github.com/repos/${settings.username}/${settings.repo}/contents/speeches.json`,
@@ -675,7 +676,7 @@
                         },
                         body: JSON.stringify({
                             message: `הוסף נאום: ${title}`,
-                            content: btoa(unescape(encodeURIComponent(JSON.stringify(speeches, null, 2)))),
+                            content: encodedContent,
                             sha: sha
                         })
                     }
@@ -715,7 +716,7 @@
 
                 if (response.ok) {
                     const data = await response.json();
-                    const content_decoded = atob(data.content);
+                    const content_decoded = decodeURIComponent(escape(atob(data.content)));
                     const speeches = JSON.parse(content_decoded);
 
                     document.getElementById('totalSpeeches').textContent = speeches.length;
@@ -761,10 +762,13 @@
                 );
 
                 const data = await response.json();
-                const content_decoded = atob(data.content);
+                const content_decoded = decodeURIComponent(escape(atob(data.content)));
                 let speeches = JSON.parse(content_decoded);
 
                 speeches = speeches.filter(s => s.id !== id);
+
+                const jsonString = JSON.stringify(speeches, null, 2);
+                const encodedContent = utf8_to_b64(jsonString);
 
                 const updateResponse = await fetch(
                     `https://api.github.com/repos/${settings.username}/${settings.repo}/contents/speeches.json`,
@@ -777,7 +781,7 @@
                         },
                         body: JSON.stringify({
                             message: 'מחק נאום',
-                            content: btoa(unescape(encodeURIComponent(JSON.stringify(speeches, null, 2)))),
+                            content: encodedContent,
                             sha: data.sha
                         })
                     }
