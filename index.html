@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fish Speeches - אוסף נאומים</title>
+    <title>הנאום המלא - תמליל נאומים בזמן אמת</title>
     <style>
         * {
             margin: 0;
@@ -11,210 +11,373 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg: #f7fafc;
+            --card: #ffffff;
+            --accent: #667eea;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: #0f172a;
+            line-height: 1.6;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        .header {
+        /* Navigation */
+        nav {
             background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
+            padding: 18px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #334155;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 30px;
             text-align: center;
         }
 
-        .header h1 {
-            color: #667eea;
+        .hero h1 {
             font-size: 3em;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             font-weight: 700;
         }
 
-        .header p {
-            color: #666;
+        .hero p {
             font-size: 1.3em;
+            margin-bottom: 40px;
+            opacity: 0.95;
         }
 
-        /* Search & Filter */
-        .controls {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .search-box {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 15px 20px;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
+        .hero-description {
             font-size: 1.1em;
-            transition: border-color 0.3s;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
         }
 
-        .search-box input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .filter-box {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 12px 24px;
-            border: 2px solid #e5e7eb;
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
             background: white;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s;
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 8px;
             font-weight: 600;
+            font-size: 1.1em;
+            transition: transform 0.2s;
         }
 
-        .filter-btn:hover {
-            border-color: #667eea;
-            color: #667eea;
+        .cta-button:hover {
+            transform: translateY(-2px);
         }
 
-        .filter-btn.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 30px;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #1e293b;
+            font-weight: 700;
         }
 
         /* Stats */
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 30px;
+            margin: 60px 0;
         }
 
-        .stat-card {
+        .stat-box {
             background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 12px;
             text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        .stat-card h3 {
-            font-size: 2.5em;
-            color: #667eea;
-            margin-bottom: 5px;
+        .stat-number {
+            font-size: 3em;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 10px;
         }
 
-        .stat-card p {
-            color: #666;
+        .stat-label {
+            color: var(--muted);
             font-size: 1.1em;
         }
 
-        /* Speeches Grid */
+        /* Speeches Section */
+        .speeches-section {
+            background: white;
+            padding: 60px 0;
+        }
+
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
         .speeches-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
         }
 
         .speech-card {
             background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .speech-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
         }
 
         .speech-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.3);
-        }
-
-        .speech-card h2 {
-            color: #333;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            line-height: 1.4;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
         }
 
         .speech-meta {
             display: flex;
-            gap: 20px;
-            margin-bottom: 15px;
-            color: #666;
-            font-size: 0.95em;
+            gap: 15px;
+            color: var(--muted);
+            font-size: 0.9em;
+            margin-bottom: 12px;
         }
 
-        .speech-meta span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .speech-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: #1e293b;
         }
 
         .speech-category {
             display: inline-block;
             background: #ede9fe;
             color: #6d28d9;
-            padding: 5px 12px;
+            padding: 4px 12px;
             border-radius: 20px;
-            font-size: 0.9em;
+            font-size: 0.85em;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .speech-preview {
-            color: #666;
-            line-height: 1.6;
+            color: var(--muted);
             margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .speech-duration {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.1em;
         }
 
         .read-more {
-            color: #667eea;
+            color: var(--accent);
             font-weight: 600;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            transition: gap 0.3s;
         }
 
-        .read-more:hover {
-            gap: 10px;
+        /* How It Works */
+        .how-it-works {
+            background: #f8fafc;
+            padding: 80px 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.8em;
+            font-weight: 700;
+            line-height: 60px;
+            margin-bottom: 20px;
+        }
+
+        .step h3 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .step p {
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 80px 0;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .pricing-card p {
+            color: var(--muted);
+            margin-bottom: 20px;
         }
 
         /* Modal */
@@ -241,17 +404,14 @@
             background: white;
             max-width: 900px;
             width: 100%;
-            border-radius: 20px;
+            border-radius: 12px;
             padding: 40px;
-            position: relative;
             max-height: 90vh;
             overflow-y: auto;
         }
 
         .modal-close {
-            position: absolute;
-            top: 20px;
-            left: 20px;
+            float: left;
             background: #ef4444;
             color: white;
             border: none;
@@ -260,21 +420,12 @@
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.5em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s;
-        }
-
-        .modal-close:hover {
-            background: #dc2626;
         }
 
         .modal-header h1 {
-            color: #333;
-            font-size: 2.2em;
-            margin-bottom: 20px;
-            padding-left: 20px;
+            font-size: 2em;
+            margin: 20px 0;
+            color: #1e293b;
         }
 
         .modal-meta {
@@ -283,36 +434,54 @@
             margin-bottom: 30px;
             padding: 20px;
             background: #f9fafb;
-            border-radius: 10px;
-        }
-
-        .modal-meta span {
-            color: #666;
-            font-size: 1.1em;
+            border-radius: 8px;
+            color: var(--muted);
         }
 
         .modal-body {
             line-height: 1.8;
-            font-size: 1.15em;
-            color: #333;
+            font-size: 1.1em;
+            color: #334155;
             white-space: pre-wrap;
         }
 
-        /* Loading & Empty States */
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 30px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
         .loading {
             text-align: center;
             padding: 60px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
 
         .spinner {
-            border: 5px solid #f3f4f6;
-            border-top: 5px solid #667eea;
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid var(--accent);
             border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
         }
@@ -322,87 +491,165 @@
             100% { transform: rotate(360deg); }
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 60px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .empty-state h2 {
-            color: #333;
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        .empty-state p {
-            color: #666;
-            font-size: 1.2em;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .header h1 {
+            .hero h1 {
                 font-size: 2em;
             }
-
-            .speeches-grid {
-                grid-template-columns: 1fr;
+            .section-title {
+                font-size: 1.8em;
             }
-
-            .controls {
-                flex-direction: column;
-            }
-
-            .modal-content {
-                padding: 30px 20px;
-            }
-
-            .modal-header h1 {
-                font-size: 1.6em;
+            .nav-links {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>🎤 Fish Speeches</h1>
-            <p>אוסף נאומים מעוררי השראה</p>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">הנאום המלא</div>
+            <ul class="nav-links">
+                <li><a href="#speeches">נאומים</a></li>
+                <li><a href="#how">איך זה עובד</a></li>
+                <li><a href="#pricing">תמחור</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>🎤 הנאום המלא</h1>
+        <p>תמליל נאומים בזמן אמת — ישראל והעולם</p>
+        <div class="hero-description">
+            קרא תמליל מלא של נאום בתוך דקות מרגע סיומו. חפש, העתיק ציטוטים, הורד טקסט או קבל סיכום — הכל במקום אחד.
+        </div>
+        <a href="#speeches" class="cta-button">חפש נאומים</a>
+    </section>
+
+    <!-- Features -->
+    <section class="container">
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">📄</div>
+                <h3>תמלילים מלאים</h3>
+                <p>כל נאום בתמליל טקסט מלא עם timestamps</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>מהירות</h3>
+                <p>תמליל בתוך דקות מרגע סיום הנאום</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔎</div>
+                <h3>חיפוש חכם</h3>
+                <p>איתור מיידי של מילות מפתח, שמות וציטוטים</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3>עריכה אנושית</h3>
+                <p>שיפור בדקדוק ושמות קריטיים לפי הצורך</p>
+            </div>
         </div>
 
         <!-- Stats -->
         <div class="stats">
-            <div class="stat-card">
-                <h3 id="totalCount">0</h3>
-                <p>סך הכל נאומים</p>
+            <div class="stat-box">
+                <span class="stat-number" id="totalSpeeches">0</span>
+                <span class="stat-label">נאומים באתר</span>
             </div>
-            <div class="stat-card">
-                <h3 id="categoryCount">0</h3>
-                <p>קטגוריות</p>
+            <div class="stat-box">
+                <span class="stat-number">20</span>
+                <span class="stat-label">דקות ממוצע לפרסום</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number" id="categoryCount">0</span>
+                <span class="stat-label">קטגוריות</span>
             </div>
         </div>
+    </section>
 
-        <!-- Controls -->
-        <div class="controls">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="🔍 חפש נאום לפי כותרת או תוכן...">
-            </div>
-            <div class="filter-box" id="filterButtons">
-                <button class="filter-btn active" data-category="all">הכל</button>
-            </div>
-        </div>
+    <!-- Speeches Section -->
+    <section class="speeches-section" id="speeches">
+        <div class="container">
+            <h2 class="section-title">נאומים אחרונים</h2>
 
-        <!-- Speeches Grid -->
-        <div id="speechesContainer">
-            <div class="loading">
-                <div class="spinner"></div>
-                <p>טוען נאומים...</p>
+            <div class="search-filter">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 חפש נאום...">
+                <div id="filterButtons">
+                    <button class="filter-btn active" data-category="all">הכל</button>
+                </div>
+            </div>
+
+            <div id="speechesContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>טוען נאומים...</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#speeches" class="cta-button">צפה בכל הנאומים</a>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how">
+        <div class="container">
+            <h2 class="section-title">איך זה עובד</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>קבלת שידור או קובץ</h3>
+                    <p>חיבור ל-YouTube/RTMP או העלאת קובץ וידאו</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>תמלול אוטומטי</h3>
+                    <p>תמלול בזמן-אמת + בדיקה אנושית לשמות וציטוטים</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>פרסום מיידי</h3>
+                    <p>התמליל עם חיפוש ויכולת הורדה תוך דקות</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">תמחור (MVP)</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3>חינם</h3>
+                    <p>גישה לנאומים אחרונים בחינם לזמן מוגבל</p>
+                </div>
+                <div class="pricing-card">
+                    <h3>מנוי מקצועי</h3>
+                    <p>גישה לארכיון מלא, API והורדות מתקדמות</p>
+                </div>
+                <div class="pricing-card">
+                    <h3>לקוחות עסקיים</h3>
+                    <p>חבילות מותאמות לעיתונות ולארגונים</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>רוצה לקבל עדכון מיד אחרי כל נאום רלוונטי?</h2>
+        <p>הירשם למערכת התראות לפי דובר, נושא או מיקום</p>
+        <a href="#" class="cta-button">הירשם</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 הנאום המלא • כל הזכויות שמורות</p>
+    </footer>
 
     <!-- Modal -->
     <div class="modal" id="speechModal">
@@ -423,7 +670,6 @@
         let allSpeeches = [];
         let currentCategory = 'all';
 
-        // Load speeches on page load
         window.onload = function() {
             loadSpeeches();
         };
@@ -431,42 +677,29 @@
         async function loadSpeeches() {
             try {
                 const response = await fetch('speeches.json');
-                if (!response.ok) {
-                    throw new Error('Failed to load speeches');
-                }
+                if (!response.ok) throw new Error('Failed to load');
                 
                 allSpeeches = await response.json();
                 
-                // Update stats
-                document.getElementById('totalCount').textContent = allSpeeches.length;
+                document.getElementById('totalSpeeches').textContent = allSpeeches.length;
                 
-                // Get unique categories
                 const categories = [...new Set(allSpeeches.map(s => s.category))];
                 document.getElementById('categoryCount').textContent = categories.length;
                 
-                // Create filter buttons
                 createFilterButtons(categories);
-                
-                // Display speeches
                 displaySpeeches(allSpeeches);
                 
-                // Setup search
                 document.getElementById('searchInput').addEventListener('input', handleSearch);
                 
             } catch (error) {
-                console.error('Error loading speeches:', error);
-                document.getElementById('speechesContainer').innerHTML = `
-                    <div class="empty-state">
-                        <h2>😔 אופס!</h2>
-                        <p>לא הצלחנו לטעון את הנאומים. אנא נסה שוב מאוחר יותר.</p>
-                    </div>
-                `;
+                console.error('Error:', error);
+                document.getElementById('speechesContainer').innerHTML = 
+                    '<p style="text-align:center;color:#666;">לא הצלחנו לטעון נאומים</p>';
             }
         }
 
         function createFilterButtons(categories) {
             const filterBox = document.getElementById('filterButtons');
-            
             categories.forEach(cat => {
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn';
@@ -479,8 +712,6 @@
 
         function filterByCategory(category) {
             currentCategory = category;
-            
-            // Update active button
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if (btn.getAttribute('data-category') === category) {
@@ -488,7 +719,6 @@
                 }
             });
             
-            // Filter and display
             const filtered = category === 'all' 
                 ? allSpeeches 
                 : allSpeeches.filter(s => s.category === category);
@@ -498,7 +728,6 @@
 
         function handleSearch(e) {
             const query = e.target.value.toLowerCase();
-            
             let filtered = currentCategory === 'all' 
                 ? allSpeeches 
                 : allSpeeches.filter(s => s.category === currentCategory);
@@ -517,12 +746,7 @@
             const container = document.getElementById('speechesContainer');
             
             if (speeches.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <h2>🔍 לא נמצאו תוצאות</h2>
-                        <p>נסה לחפש משהו אחר או לשנות את הסינון</p>
-                    </div>
-                `;
+                container.innerHTML = '<p style="text-align:center;color:#666;">לא נמצאו נאומים</p>';
                 return;
             }
             
@@ -530,16 +754,16 @@
                 <div class="speeches-grid">
                     ${speeches.map(speech => `
                         <div class="speech-card" onclick="openModal('${speech.id}')">
-                            <h2>${speech.title}</h2>
                             <div class="speech-meta">
                                 <span>📅 ${formatDate(speech.date)}</span>
                             </div>
+                            <h3>${speech.title}</h3>
                             <span class="speech-category">${speech.category}</span>
                             <div class="speech-preview">
-                                ${speech.content.substring(0, 150)}...
+                                ${speech.content.substring(0, 120)}...
                             </div>
                             <a href="#" class="read-more" onclick="event.preventDefault()">
-                                קרא עוד ←
+                                קרא תמליל מלא ←
                             </a>
                         </div>
                     `).join('')}
@@ -574,18 +798,12 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Close modal on escape key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
+            if (e.key === 'Escape') closeModal();
         });
 
-        // Close modal on background click
         document.getElementById('speechModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
+            if (e.target === this) closeModal();
         });
     </script>
 </body>
