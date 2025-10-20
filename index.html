@@ -760,7 +760,7 @@
                             <h3>${speech.title}</h3>
                             <span class="speech-category">${speech.category}</span>
                             <div class="speech-preview">
-                                ${speech.content.substring(0, 120)}...
+                                ${speech.summary ? speech.summary : speech.content.substring(0, 120) + '...'}
                             </div>
                             <a href="#" class="read-more" onclick="event.preventDefault()">
                                 קרא תמליל מלא ←
