@@ -444,6 +444,11 @@
                             <input type="text" id="fileCategory" placeholder="קטגוריה">
                         </div>
 
+                        <div class="form-group">
+                            <label>סיכום הנאום (2-3 שורות):</label>
+                            <textarea id="fileSummary" placeholder="כתוב כאן סיכום קצר..." style="min-height: 80px;"></textarea>
+                        </div>
+
                         <button class="btn btn-primary" onclick="uploadFileContent()">🚀 פרסם נאום</button>
                     </div>
                 </div>
@@ -601,13 +606,14 @@
             const title = document.getElementById('fileTitle').value.trim();
             const date = document.getElementById('fileDate').value.trim();
             const category = document.getElementById('fileCategory').value.trim();
+            const summary = document.getElementById('fileSummary').value.trim();
 
             if (!title || !currentFileContent) {
                 showStatus('uploadStatus', 'error', '❌ נא למלא כותרת ולטעון קובץ');
                 return;
             }
 
-            await uploadSpeechData(title, date, category, currentFileContent);
+            await uploadSpeechData(title, date, category, currentFileContent, summary);
         }
 
         async function uploadSpeech() {
@@ -615,13 +621,14 @@
             const date = document.getElementById('speechDate').value.trim();
             const category = document.getElementById('speechCategory').value.trim();
             const content = document.getElementById('speechContent').value.trim();
+            const summary = document.getElementById('speechSummary').value.trim();
 
             if (!title || !content) {
                 showStatus('uploadStatus', 'error', '❌ נא למלא כותרת ותוכן');
                 return;
             }
 
-            await uploadSpeechData(title, date, category, content);
+            await uploadSpeechData(title, date, category, content, summary);
         }
 
         // FIXED: Proper UTF-8 encoding for Hebrew
@@ -629,7 +636,7 @@
             return btoa(unescape(encodeURIComponent(str)));
         }
 
-        async function uploadSpeechData(title, date, category, content) {
+        async function uploadSpeechData(title, date, category, content, summary) {
             showStatus('uploadStatus', 'info', '⏳ מעלה נאום...');
 
             try {
@@ -660,6 +667,7 @@
                     title: title,
                     date: date || new Date().toISOString().split('T')[0],
                     category: category || 'כללי',
+                    summary: summary || '',
                     content: content
                 };
 
@@ -693,6 +701,7 @@
                     document.getElementById('speechTitle').value = '';
                     document.getElementById('speechContent').value = '';
                     document.getElementById('speechCategory').value = '';
+                    document.getElementById('speechSummary').value = '';
                     currentFileContent = '';
                     document.getElementById('fileInfo').classList.add('hidden');
                     document.getElementById('fileInput').value = '';
@@ -738,6 +747,7 @@
                             <h3>${speech.title}</h3>
                             <p>📅 ${speech.date} | 🏷️ ${speech.category}</p>
                             <p>${speech.content.substring(0, 150)}...</p>
+                            <button class="btn btn-primary" onclick="editSpeech('${speech.id}')" style="background: #f59e0b;">✏️ ערוך</button>
                             <button class="btn btn-danger" onclick="deleteSpeech('${speech.id}')">🗑️ מחק</button>
                         `;
                         listDiv.appendChild(item);
